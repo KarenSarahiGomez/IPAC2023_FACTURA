@@ -101,6 +101,7 @@
             this.Mostrarbutton.Size = new System.Drawing.Size(32, 23);
             this.Mostrarbutton.TabIndex = 7;
             this.Mostrarbutton.UseVisualStyleBackColor = true;
+            this.Mostrarbutton.Click += new System.EventHandler(this.Mostrarbutton_Click);
             // 
             // pictureBox1
             // 
