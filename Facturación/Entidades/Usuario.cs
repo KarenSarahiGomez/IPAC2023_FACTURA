@@ -9,6 +9,10 @@ namespace Entidades
         public string Contraseña { get; set; }
         public string Correo { get; set; }
         public string Rol { get; set; }
+
+        //Guardar fotografias del usuario
+        public byte[] Foto { get; set; }
+
         public DateTime FechaCreación { get; set; }
         public bool EstaActivo { get; set; }
 
@@ -16,17 +20,16 @@ namespace Entidades
         {
         }
 
-        public Usuario(string codigoUsuario, string nombre, string contraseña, string correo, string rol, DateTime fechaCreación, bool estaActivo)
+        public Usuario(string codigoUsuario, string nombre, string contraseña, string correo, string rol, byte[] foto, DateTime fechaCreación, bool estaActivo)
         {
             CodigoUsuario = codigoUsuario;
             Nombre = nombre;
             Contraseña = contraseña;
             Correo = correo;
             Rol = rol;
+            Foto = foto;
             FechaCreación = fechaCreación;
             EstaActivo = estaActivo;
         }
-
-
     }
 }
