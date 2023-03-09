@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Datos;
+using Entidades;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Vista
@@ -11,6 +15,8 @@ namespace Vista
         }
 
         string operacion;
+        Producto producto;
+        ProductoDB productoDB = new ProductoDB();
 
         private void NuevoButton_Click(object sender, EventArgs e)
         {
@@ -28,6 +34,16 @@ namespace Vista
             GuardarButton.Enabled = true;
             CancelarButton.Enabled = true;
             NuevoButton.Enabled = false;
+        }
+        private void LimpiarControles()
+        {
+            CodigoTextBox.Clear();
+            DescripcionTextBox.Clear();
+            ExistenciaTextBox.Clear();
+            PrecioTextBox.Clear();
+            EstaActivoCheckBox.Checked = false;
+            ImagenPictureBox.Image = null;
+            producto = null;
         }
         private void DeshabilitarControles()
         {
@@ -47,9 +63,44 @@ namespace Vista
         private void ModificarButton_Click(object sender, EventArgs e)
         {
             operacion = "Modificar";
+            if (ProductosDataGridView.SelectedRows.Count > 0)
+            {
+                CodigoTextBox.Text = ProductosDataGridView.CurrentRow.Cells["codigo"].Value.ToString();
+                DescripcionTextBox.Text = ProductosDataGridView.CurrentRow.Cells["Descripcion"].Value.ToString();
+                ExistenciaTextBox.Text = ProductosDataGridView.CurrentRow.Cells["Existencia"].Value.ToString();
+                PrecioTextBox.Text = ProductosDataGridView.CurrentRow.Cells["Precio"].Value.ToString();
+                EstaActivoCheckBox.Checked = Convert.ToBoolean(ProductosDataGridView.CurrentRow.Cells["EstaActivo"].Value);
+
+                byte[] img = productoDB.DevolverFoto(ProductosDataGridView.CurrentRow.Cells["codigo"].Value.ToString());
+                if (img.Length > 0)
+                {
+                    MemoryStream ms = new MemoryStream(img);
+                    ImagenPictureBox.Image = System.Drawing.Bitmap.FromStream(ms);
+                }
+                HabilitarControles();
+                CodigoTextBox.ReadOnly = true;
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un registro");
+            }
         }
         private void GuardarButton_Click(object sender, EventArgs e)
         {
+            producto = new Producto();
+            producto.Codigo = CodigoTextBox.Text;
+            producto.Descripcion = DescripcionTextBox.Text;
+            producto.Precio = Convert.ToDecimal(PrecioTextBox.Text);
+            producto.Existencia = Convert.ToInt32(ExistenciaTextBox.Text);
+            producto.EstaActivo = EstaActivoCheckBox.Checked;
+
+            if (ImagenPictureBox.Image != null)
+            {
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+                ImagenPictureBox.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                producto.Foto = ms.GetBuffer();
+            }
+
             if (operacion == "Nuevo")
             {
                 if (string.IsNullOrEmpty(CodigoTextBox.Text))
@@ -83,6 +134,36 @@ namespace Vista
                     return;
                 }
                 errorProvider1.Clear();
+
+
+                bool inserto = productoDB.Insertar(producto);
+                if (inserto)
+                {
+                    DeshabilitarControles();
+                    LimpiarControles();
+                    TraerProductos();
+                    MessageBox.Show("Registro guardado con exito", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo guardar el registro", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (operacion == "Modificar")
+            {
+                bool modifico = productoDB.Editar(producto);
+                if (modifico)
+                {
+                    CodigoTextBox.ReadOnly = false;
+                    DeshabilitarControles();
+                    LimpiarControles();
+                    TraerProductos();
+                    MessageBox.Show("Registro guardado con exito", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo actualizar el registro", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -95,7 +176,7 @@ namespace Vista
         }
         private void PrecioTextBox_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            if (!char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '\b'))
             {
                 e.Handled = true;
             }
@@ -103,6 +184,50 @@ namespace Vista
             if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void AdjuntarImagenButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            DialogResult resultado = dialog.ShowDialog();
+
+            if (resultado == DialogResult.OK)
+            {
+                ImagenPictureBox.Image = Image.FromFile(dialog.FileName);
+            }
+        }
+
+        private void ProductosForm_Load(object sender, EventArgs e)
+        {
+            TraerProductos();
+        }
+
+        private void TraerProductos()
+        {
+            ProductosDataGridView.DataSource = productoDB.DevolverProductos();
+        }
+
+        private void EliminarButton_Click(object sender, EventArgs e)
+        {
+            if (ProductosDataGridView.SelectedRows.Count > 0)
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro de eliminar el regitro?", "Advertencia", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    bool elimino = productoDB.Eliminar(ProductosDataGridView.CurrentRow.Cells["Codigo"].Value.ToString());
+                    if (elimino)
+                    {
+                        LimpiarControles();
+                        DeshabilitarControles();
+                        TraerProductos();
+                        MessageBox.Show("Registro eliminado");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo eliminar el registro");
+                    }
+                }
             }
         }
     }
