@@ -3,16 +3,16 @@
     public class Login
     {
         public string CodigoUsuario { get; set; }
-        public string Contraseña { get; set; }
+        public string Contrasena { get; set; }
 
         public Login() //Siempre se debe crear 
         {
         }
 
-        public Login(string codigoUsuario, string contraseña)
+        public Login(string codigoUsuario, string contrasena)
         {
             CodigoUsuario = codigoUsuario;
-            Contraseña = contraseña;
+            Contrasena = contrasena;
         }
     }
 }

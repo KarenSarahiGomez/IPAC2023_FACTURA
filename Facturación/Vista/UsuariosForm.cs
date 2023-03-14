@@ -106,7 +106,7 @@ namespace Vista
 
                 user.CodigoUsuario = CodigoTextBox.Text;
                 user.Nombre = NombreTextBox.Text;
-                user.Contraseña = ContraseñaTextBox.Text;
+                user.Contrasena = ContraseñaTextBox.Text;
                 user.Rol = RolComboBox.Text;
                 user.Correo = CorreoTextBox.Text;
                 user.EstaActivo = EstaActivoCheckBox.Checked;
@@ -141,7 +141,7 @@ namespace Vista
             {
                 user.CodigoUsuario = CodigoTextBox.Text;
                 user.Nombre = NombreTextBox.Text;
-                user.Contraseña = ContraseñaTextBox.Text;
+                user.Contrasena = ContraseñaTextBox.Text;
                 user.Rol = RolComboBox.Text;
                 user.Correo = CorreoTextBox.Text;
                 user.EstaActivo = EstaActivoCheckBox.Checked;
@@ -173,7 +173,7 @@ namespace Vista
             {
                 CodigoTextBox.Text = UsuariosDataGridView.CurrentRow.Cells["CodigoUsuario"].Value.ToString();
                 NombreTextBox.Text = UsuariosDataGridView.CurrentRow.Cells["Nombre"].Value.ToString();
-                ContraseñaTextBox.Text = UsuariosDataGridView.CurrentRow.Cells["Contraseña"].Value.ToString();
+                ContraseñaTextBox.Text = UsuariosDataGridView.CurrentRow.Cells["Contrasena"].Value.ToString();
                 CorreoTextBox.Text = UsuariosDataGridView.CurrentRow.Cells["Correo"].Value.ToString();
                 RolComboBox.Text = UsuariosDataGridView.CurrentRow.Cells["Rol"].Value.ToString();
                 EstaActivoCheckBox.Checked = Convert.ToBoolean(UsuariosDataGridView.CurrentRow.Cells["EstaActivo"].Value);

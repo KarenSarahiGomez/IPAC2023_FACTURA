@@ -9,7 +9,7 @@ namespace Datos
     public class UsuarioDB
     {
         //Agregar la ruta o la conexion al servidor 
-        string cadena = "server=localhost; user=root; database=facturación; password=123456";
+        string cadena = "server=localhost; user=root; database=facturación; password=123456;";
         //metodo para interactuar con la tabla usuario el que permite devolver la clase usuario
         //try cath es para capturar errores y evitar que se cierre inesperadamente o de algun error
         public Usuario Autenticar(Login login)
@@ -19,7 +19,7 @@ namespace Datos
             try
             {
                 StringBuilder sql = new StringBuilder();
-                sql.Append("SELECT * FROM usuario WHERE CodigoUsuario = @CodigoUsuario AND Contraseña = @Contraseña;");
+                sql.Append("SELECT * FROM usuario WHERE CodigoUsuario = @CodigoUsuario AND Contrasena = @Contrasena;");
 
                 using (MySqlConnection _conexion = new MySqlConnection(cadena))
                 {
@@ -28,7 +28,7 @@ namespace Datos
                     {
                         comando.CommandType = CommandType.Text;
                         comando.Parameters.Add("@CodigoUsuario", MySqlDbType.VarChar, 50).Value = login.CodigoUsuario;
-                        comando.Parameters.Add("@Contraseña", MySqlDbType.VarChar, 50).Value = login.Contraseña;
+                        comando.Parameters.Add("@Contrasena", MySqlDbType.VarChar, 50).Value = login.Contrasena;
 
                         //ejecutar la sentencia y utlizar la clase mysql...
                         MySqlDataReader dr = comando.ExecuteReader();
@@ -37,7 +37,7 @@ namespace Datos
                             user = new Usuario();
                             user.CodigoUsuario = dr["CodigoUsuario"].ToString();
                             user.Nombre = dr["Nombre"].ToString();
-                            user.Contraseña = dr["Contrasena"].ToString();
+                            user.Contrasena = dr["Contrasena"].ToString();
                             user.Correo = dr["Correo"].ToString();
                             user.Rol = dr["Rol"].ToString();
                             user.FechaCreación = Convert.ToDateTime(dr["FechaCreacion"]);
@@ -75,7 +75,7 @@ namespace Datos
                         comando.CommandType = CommandType.Text;
                         comando.Parameters.Add("@CodigoUsuario", MySqlDbType.VarChar, 50).Value = user.CodigoUsuario;
                         comando.Parameters.Add("@Nombre", MySqlDbType.VarChar, 50).Value = user.Nombre;
-                        comando.Parameters.Add("@Contrasena", MySqlDbType.VarChar, 80).Value = user.Contraseña;
+                        comando.Parameters.Add("@Contrasena", MySqlDbType.VarChar, 80).Value = user.Contrasena;
                         comando.Parameters.Add("@Correo", MySqlDbType.VarChar, 45).Value = user.Correo;
                         comando.Parameters.Add("@Rol", MySqlDbType.VarChar, 20).Value = user.Rol;
                         comando.Parameters.Add("@Foto", MySqlDbType.LongBlob).Value = user.Foto;
@@ -110,7 +110,7 @@ namespace Datos
                         comando.CommandType = CommandType.Text;
                         comando.Parameters.Add("@CodigoUsuario", MySqlDbType.VarChar, 50).Value = user.CodigoUsuario;
                         comando.Parameters.Add("@Nombre", MySqlDbType.VarChar, 50).Value = user.Nombre;
-                        comando.Parameters.Add("@Contrasena", MySqlDbType.VarChar, 80).Value = user.Contraseña;
+                        comando.Parameters.Add("@Contrasena", MySqlDbType.VarChar, 80).Value = user.Contrasena;
                         comando.Parameters.Add("@Correo", MySqlDbType.VarChar, 45).Value = user.Correo;
                         comando.Parameters.Add("@Rol", MySqlDbType.VarChar, 20).Value = user.Rol;
                         comando.Parameters.Add("@Foto", MySqlDbType.LongBlob).Value = user.Foto;
