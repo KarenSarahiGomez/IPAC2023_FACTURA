@@ -160,7 +160,6 @@ namespace Datos
             {
                 StringBuilder sql = new StringBuilder();
                 sql.Append(" SELECT * FROM usuario");
-                sql.Append(" WHERE CodigoUsuario = @CodigoUsuario; ");
 
                 using (MySqlConnection _conexion = new MySqlConnection(cadena))
                 {

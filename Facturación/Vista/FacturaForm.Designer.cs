@@ -148,6 +148,7 @@
             this.BuscarClienteButton.TabIndex = 5;
             this.BuscarClienteButton.Text = ".....";
             this.BuscarClienteButton.UseVisualStyleBackColor = true;
+            this.BuscarClienteButton.Click += new System.EventHandler(this.BuscarClienteButton_Click);
             // 
             // IdentidadTextBox
             // 
@@ -155,6 +156,7 @@
             this.IdentidadTextBox.Name = "IdentidadTextBox";
             this.IdentidadTextBox.Size = new System.Drawing.Size(197, 22);
             this.IdentidadTextBox.TabIndex = 4;
+            this.IdentidadTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IdentidadTextBox_KeyPress);
             // 
             // label4
             // 
