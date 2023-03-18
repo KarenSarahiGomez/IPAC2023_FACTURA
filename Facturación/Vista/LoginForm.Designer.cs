@@ -128,7 +128,7 @@
             this.Aceptarbutton.UseVisualStyleBackColor = true;
             this.Aceptarbutton.Click += new System.EventHandler(this.Aceptarbutton_Click);
             // 
-            // Login
+            // LoginForm
             // 
             this.AcceptButton = this.Cancelarbutton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -146,9 +146,10 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+           
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

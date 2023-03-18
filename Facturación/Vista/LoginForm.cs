@@ -77,5 +77,6 @@ namespace Vista
                 ContraseñatextBox.PasswordChar = '*';
             }
         }
+
     }
 }
