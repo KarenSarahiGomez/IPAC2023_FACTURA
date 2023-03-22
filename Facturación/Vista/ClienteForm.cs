@@ -134,7 +134,7 @@ namespace Vista
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo guardar su registro");
+                    MessageBox.Show("Guardado con éxito");
                 }
 
                 //Pendiente lo anterior
