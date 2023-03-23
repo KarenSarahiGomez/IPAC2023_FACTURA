@@ -190,6 +190,7 @@
             this.CantidadTextBox.Name = "CantidadTextBox";
             this.CantidadTextBox.Size = new System.Drawing.Size(197, 22);
             this.CantidadTextBox.TabIndex = 11;
+            this.CantidadTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CantidadTextBox_KeyPress);
             // 
             // label7
             // 
@@ -232,6 +233,7 @@
             this.BuscarProductoButton.TabIndex = 7;
             this.BuscarProductoButton.Text = ".....";
             this.BuscarProductoButton.UseVisualStyleBackColor = true;
+            this.BuscarProductoButton.Click += new System.EventHandler(this.BuscarProductoButton_Click);
             // 
             // CodigoProductoTextBox
             // 
@@ -239,6 +241,7 @@
             this.CodigoProductoTextBox.Name = "CodigoProductoTextBox";
             this.CodigoProductoTextBox.Size = new System.Drawing.Size(197, 22);
             this.CodigoProductoTextBox.TabIndex = 7;
+            this.CodigoProductoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CodigoProductoTextBox_KeyPress);
             // 
             // label5
             // 
@@ -251,6 +254,7 @@
             // 
             // DetalleDataGridView
             // 
+            this.DetalleDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DetalleDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DetalleDataGridView.Location = new System.Drawing.Point(28, 270);
             this.DetalleDataGridView.Name = "DetalleDataGridView";
@@ -332,6 +336,7 @@
             this.GuardarButton.TabIndex = 19;
             this.GuardarButton.Text = "Guardar";
             this.GuardarButton.UseVisualStyleBackColor = true;
+            this.GuardarButton.Click += new System.EventHandler(this.GuardarButton_Click);
             // 
             // CancelarButton
             // 
@@ -367,6 +372,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FacturaForm";
             this.Text = "Factura";
+            this.Load += new System.EventHandler(this.FacturaForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

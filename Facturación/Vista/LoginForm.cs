@@ -45,6 +45,10 @@ namespace Vista
             {
                 if (usuario.EstaActivo)
                 {
+                    System.Security.Principal.GenericIdentity identidad = new System.Security.Principal.GenericIdentity(usuario.CodigoUsuario);
+                    System.Security.Principal.GenericPrincipal principal = new System.Security.Principal.GenericPrincipal(identidad, new string[] { usuario.Rol });
+                    System.Threading.Thread.CurrentPrincipal = principal;
+
                     //Mostramos menu
                     Menu menuFormulario = new Menu();
                     Hide(); //Hide: ocultar antes de mostar formulario
